@@ -13,26 +13,30 @@ const Cryptocurrencies = () => {
     const searchCryptocurrencyUrl = `https://api.coingecko.com/api/v3/search?query=${search}`
 
     const showCryptocurrencyApi = async (urlApi) => {
-        const data = await apiConsumption(urlApi);
-        if (urlApi === searchCryptocurrencyUrl) {
-            setApi(data.coins);
-        } else {
-            setApi(data);
+        try {
+            const data = await apiConsumption(urlApi);
+            if (urlApi === searchCryptocurrencyUrl) {
+                setApi(data.coins);
+            } else {
+                setApi(data);
+            }
+            console.log(data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
         }
-        console.log(data);
     };
 
-    const searchCryptocurrencies = (event) => {
-        setSearch(event.target.value.toLowerCase())
-        showCryptocurrencyApi(searchCryptocurrencyUrl)
-    }
+    const FilterCryptocurrencySearch = search ? api.filter((coins) =>
+        coins.name.toLowerCase().startsWith(search.toLowerCase()) || coins.symbol.toLowerCase().startsWith(search.toLowerCase())
+    )
+        : api;
 
-    const renderCryptocurrency = api.map((coins) => (
+    const renderCryptocurrency = FilterCryptocurrencySearch.map((coins) => (
         <>
             <CryptocurrencyCards
                 name={coins.name}
                 image={coins.image === undefined ? coins.large : coins.image}
-                price={coins.current_price}
+                price={coins.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(/\./g, ",")}
                 symbol={coins.symbol} />
         </>
     ))
@@ -44,7 +48,7 @@ const Cryptocurrencies = () => {
     return (
         <>
             <h1>Control Panel</h1>
-            <Search search={search} searchCryptocurrencies={searchCryptocurrencies} />
+            <Search search={search} searchCryptocurrencies={(e) => setSearch(e.target.value)} />
             <p>{search}</p>
             {renderCryptocurrency}
         </>
