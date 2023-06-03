@@ -1,6 +1,7 @@
 import { useState } from "react";
 import apiConsumption from "../helpers/api";
 import CryptocurrencyCards from "./CryptocurrencyCards";
+import Search from "./SearchCryptocurrencies";
 import prueba from '../Json/prueba.JSON'
 
 const Cryptocurrencies = () => {
@@ -26,10 +27,6 @@ const Cryptocurrencies = () => {
         showCryptocurrencyApi(searchCryptocurrencyUrl)
     }
 
-    if (api.length === 0) {
-        showCryptocurrencyApi(prueba);
-    }
-
     const renderCryptocurrency = api.map((coins) => (
         <>
             <CryptocurrencyCards
@@ -40,17 +37,15 @@ const Cryptocurrencies = () => {
         </>
     ))
 
+    if (api.length === 0) {
+        showCryptocurrencyApi(prueba);
+    }
+
     return (
         <>
             <h1>Control Panel</h1>
-            <input
-                type="text"
-                name="search"
-                id="search"
-                value={search}
-                onChange={searchCryptocurrencies}
-                placeholder="Enter your search currency request..."
-            />
+            <Search search={search} searchCryptocurrencies={searchCryptocurrencies} />
+            <p>{search}</p>
             {renderCryptocurrency}
         </>
     );

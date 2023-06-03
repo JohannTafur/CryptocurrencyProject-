@@ -1,7 +1,14 @@
-const Search = () => {
+const Search = ({ search, searchCryptocurrencies }) => {
     return (
         <>
-            <input type="text" />
+            <input
+                type="text"
+                name="search"
+                id="search"
+                value={search}
+                onChange={searchCryptocurrencies}
+                placeholder="Enter your search currency request..."
+            />
         </>
     )
 }
