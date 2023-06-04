@@ -1,8 +1,40 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+#root {
+    display: flex; 
+    width: 97%; 
+    height: 100vh;  
+}
+
+.showDataInGraph{
+    color: white;
+    padding: 2%;
+    margin: 2%;
+    width: 70%;
+    background-color: black;
+    border-radius: 20px;
+}
+
+.showCryptocurrencies{
+    width: 30%;
+    margin: 2% 1%;
+}
+
+.cryptocurrencies{
+    margin: 4% 0 0 0;
+    overflow: auto; 
+    max-height: 75.3vh;
+}
+
+.showCryptocurrencies h1{
+    margin-bottom: 35px;
 }
 
 input {
+    margin-bottom: 18px;
     border-radius: 20px;
     background-color: #c4c4c431;
     padding: 15px;
@@ -15,19 +47,17 @@ input {
     outline: none;
 }
 
-
 .card {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 3px;
+    padding: 8px;
+    margin-bottom: 30px;
 }
 
 .imageOfCryptocurrency {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 100%;
     margin-right: 10px;
 }
 

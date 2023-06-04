@@ -2,6 +2,7 @@ import { useState } from "react";
 import apiConsumption from "../helpers/api";
 import CryptocurrencyCards from "./CryptocurrencyCards";
 import Search from "./SearchCryptocurrencies";
+import Graph from "./ShowGraph";
 import prueba from '../Json/prueba.JSON'
 
 const Cryptocurrencies = () => {
@@ -20,7 +21,6 @@ const Cryptocurrencies = () => {
             } else {
                 setApi(data);
             }
-            console.log(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -32,13 +32,13 @@ const Cryptocurrencies = () => {
         : api;
 
     const renderCryptocurrency = FilterCryptocurrencySearch.map((coins) => (
-        <>
+        <div className="card" key={coins.id}>
             <CryptocurrencyCards
                 name={coins.name}
                 image={coins.image === undefined ? coins.large : coins.image}
                 price={coins.current_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(/\./g, ",")}
                 symbol={coins.symbol} />
-        </>
+        </div>
     ))
 
     if (api.length === 0) {
@@ -47,10 +47,14 @@ const Cryptocurrencies = () => {
 
     return (
         <>
-            <h1>Control Panel</h1>
-            <Search search={search} searchCryptocurrencies={(e) => setSearch(e.target.value)} />
-            <p>{search}</p>
-            {renderCryptocurrency}
+            <Graph />
+            <div className="showCryptocurrencies">
+                <h1>Control Panel</h1>
+                <Search search={search} searchCryptocurrencies={(e) => setSearch(e.target.value)} />
+                <div className="cryptocurrencies">
+                    {renderCryptocurrency}
+                </div>
+            </div>
         </>
     );
 };
