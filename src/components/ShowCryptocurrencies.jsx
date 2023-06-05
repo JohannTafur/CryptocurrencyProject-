@@ -9,6 +9,7 @@ const Cryptocurrencies = () => {
 
     const [api, setApi] = useState([]);
     const [search, setSearch] = useState('')
+    const [selected, setSelected] = useState({})
 
     const cryptocurrencyUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en'
     const searchCryptocurrencyUrl = `https://api.coingecko.com/api/v3/search?query=${search}`
@@ -32,7 +33,7 @@ const Cryptocurrencies = () => {
         : api;
 
     const renderCryptocurrency = FilterCryptocurrencySearch.map((coins) => (
-        <div className="card" key={coins.id}>
+        <div className="card" key={coins.id} onClick={() => setSelected({ id: coins.id, price: coins.current_price })}>
             <CryptocurrencyCards
                 name={coins.name}
                 image={coins.image === undefined ? coins.large : coins.image}
@@ -47,7 +48,7 @@ const Cryptocurrencies = () => {
 
     return (
         <>
-            <Graph />
+            <Graph idCoin={selected.id} price={selected.price} />
             <div className="showCryptocurrencies">
                 <h1>Control Panel</h1>
                 <Search search={search} searchCryptocurrencies={(e) => setSearch(e.target.value)} />

@@ -4,32 +4,32 @@
 }
 
 #root {
-    display: flex; 
-    width: 97%; 
-    height: 100vh;  
+    display: flex;
+    width: 97%;
+    height: 100vh;
 }
 
-.showDataInGraph{
+.showDataInGraph {
     color: white;
-    padding: 2%;
+
     margin: 2%;
     width: 70%;
     background-color: black;
-    border-radius: 20px;
+    border-radius: 30px;
 }
 
-.showCryptocurrencies{
+.showCryptocurrencies {
     width: 30%;
     margin: 2% 1%;
 }
 
-.cryptocurrencies{
+.cryptocurrencies {
     margin: 4% 0 0 0;
-    overflow: auto; 
+    overflow: auto;
     max-height: 75.3vh;
 }
 
-.showCryptocurrencies h1{
+.showCryptocurrencies h1 {
     margin-bottom: 35px;
 }
 
@@ -52,6 +52,7 @@ input {
     align-items: center;
     padding: 8px;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .imageOfCryptocurrency {
@@ -76,3 +77,4 @@ input {
     color: #888;
     margin-bottom: 5px;
 }
+
