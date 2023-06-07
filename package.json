@@ -1,5 +1,5 @@
 {
-  "name": "hola",
+  "name": "cryptocurrency-project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,8 +11,6 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "victory": "^36.6.10",
-    "victory-core": "^36.6.10",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
