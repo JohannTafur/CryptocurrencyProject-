@@ -1,4 +1,4 @@
-const apiConsumption = async (urlApi) => {
+const fetchData = async (urlApi) => {
     try {
         const response = await fetch(urlApi);
         const data = await response.json();
@@ -8,4 +8,4 @@ const apiConsumption = async (urlApi) => {
     }
 };
 
-export default apiConsumption;
+export default fetchData;

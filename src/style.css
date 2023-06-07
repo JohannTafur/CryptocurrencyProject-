@@ -11,25 +11,24 @@
 
 .showDataInGraph {
     color: white;
-
     margin: 2%;
     width: 70%;
     background-color: black;
     border-radius: 30px;
 }
 
-.showCryptocurrencies {
+.cryptocurrencySection {
     width: 30%;
     margin: 2% 1%;
 }
 
-.cryptocurrencies {
+.showCryptocurrencies {
     margin: 4% 0 0 0;
     overflow: auto;
     max-height: 75.3vh;
 }
 
-.showCryptocurrencies h1 {
+.cryptocurrencySection h1 {
     margin-bottom: 35px;
 }
 
@@ -47,7 +46,7 @@ input {
     outline: none;
 }
 
-.card {
+.cryptocurrencyCard {
     display: flex;
     align-items: center;
     padding: 8px;
@@ -55,7 +54,7 @@ input {
     cursor: pointer;
 }
 
-.imageOfCryptocurrency {
+.cryptocurrencyImage {
     width: 50px;
     height: 50px;
     border-radius: 100%;
@@ -77,4 +76,3 @@ input {
     color: #888;
     margin-bottom: 5px;
 }
-

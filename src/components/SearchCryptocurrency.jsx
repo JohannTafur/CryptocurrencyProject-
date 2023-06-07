@@ -1,4 +1,4 @@
-const Search = ({ search, searchCryptocurrencies }) => {
+const SearchCryptocurrency = ({ search, searchCryptocurrencies }) => {
     return (
         <>
             <input
@@ -13,4 +13,4 @@ const Search = ({ search, searchCryptocurrencies }) => {
     )
 }
 
-export default Search
+export default SearchCryptocurrency
