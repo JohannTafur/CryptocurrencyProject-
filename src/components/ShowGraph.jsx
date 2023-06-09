@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
-const Graph = ({ idCoin, price }) => {
+const ShowGraph = ({ idCoin, price }) => {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
@@ -115,4 +115,4 @@ const Graph = ({ idCoin, price }) => {
     );
 };
 
-export default Graph;
+export default ShowGraph;

@@ -1,10 +1,10 @@
-import Cryptocurrencies from "./components/ShowCryptocurrencies";
+import ShowCryptocurrencies from "./components/ShowCryptocurrencies";
 import './style.css'
 
 function App() {
   return (
     <>
-      <Cryptocurrencies />
+      <ShowCryptocurrencies />
     </>
   );
 }
