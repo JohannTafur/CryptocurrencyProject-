@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import fetchData from "../helpers/fetchData";
 import SearchCryptocurrency from "./SearchCryptocurrency";
 import CryptocurrencyCard from "./CryptocurrencyCard";
 import Graph from "./ShowGraph";
-
 import prueba from '../Json/prueba.JSON'
 
 const Cryptocurrencies = () => {
 
     const [cryptocurrencyData, setcryptocurrencyData] = useState([]);
     const [search, setSearch] = useState('')
-    const [selectCryptocurrency, setSelectCryptocurrency] = useState({})
+    const [selectCryptocurrency, setSelectCryptocurrency] = useState([])
+    const [searchData, setSearchData] = useState([]);
 
     const cryptocurrencyUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en'
     const searchCryptocurrencyUrl = `https://api.coingecko.com/api/v3/search?query=${search}`
@@ -18,24 +18,34 @@ const Cryptocurrencies = () => {
     const showCryptocurrencyApi = async (urlApi) => {
         try {
             const data = await fetchData(urlApi);
-            if (urlApi === searchCryptocurrencyUrl) {
-                setcryptocurrencyData(data.coins);
-            } else {
-                setcryptocurrencyData(data);
-            }
+            setcryptocurrencyData(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
-    const filteredCryptocurrencies = search
-        ? cryptocurrencyData.filter((coins) =>
-            coins.name.toLowerCase().startsWith(search.toLowerCase()) ||
-            coins.symbol.toLowerCase().startsWith(search.toLowerCase())
+    useEffect(() => {
+        showCryptocurrencyApi(cryptocurrencyUrl);
+    }, [])
+
+    useEffect(() => {
+        const fetchSearch = async (urlSearch) => {
+            const data = await fetchData(urlSearch)
+            setSearchData(data)
+        }
+
+        fetchSearch(searchCryptocurrencyUrl)
+    }, [search])
+
+    const cryptocurrencyFilter = search
+        ? cryptocurrencyData.filter((coin) =>
+            searchData.coins.some((searchCoin) => searchCoin.id === coin.id)
         )
         : cryptocurrencyData;
 
-    const renderCryptocurrency = filteredCryptocurrencies.map((coins) => (
+    console.log(cryptocurrencyFilter)
+
+    const renderCryptocurrency = cryptocurrencyFilter.map((coins) => (
         <div className="cryptocurrencyCard" key={coins.id} onClick={() => setSelectCryptocurrency({ id: coins.id, price: coins.current_price })}>
             <CryptocurrencyCard
                 image={coins.image || coins.large}
@@ -45,11 +55,6 @@ const Cryptocurrencies = () => {
             />
         </div>
     ));
-
-
-    if (cryptocurrencyData.length === 0) {
-        showCryptocurrencyApi(prueba);
-    }
 
     return (
         <>
