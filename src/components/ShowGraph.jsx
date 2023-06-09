@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
+import fetchData from '../helpers/fetchData';
 
 const ShowGraph = ({ idCoin, name }) => {
     const [chartData, setChartData] = useState(null);
     const chartRef = useRef(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const getDataFromGraph = async () => {
             try {
-                const response = await fetch(
-                    `https://api.coingecko.com/api/v3/coins/${idCoin || 'bitcoin'}/market_chart?vs_currency=usd&days=30`
-                );
-                const data = await response.json();
+                const data = await fetchData(`https://api.coingecko.com/api/v3/coins/${idCoin || 'bitcoin'}/market_chart?vs_currency=usd&days=30`);
 
                 const filteredData = data.prices.filter((price, index) => index % 24 === 0);
 
@@ -35,7 +33,7 @@ const ShowGraph = ({ idCoin, name }) => {
             }
         };
 
-        fetchData();
+        getDataFromGraph();
     }, [idCoin, name]);
 
     useEffect(() => {
