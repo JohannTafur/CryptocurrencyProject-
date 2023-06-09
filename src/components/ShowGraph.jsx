@@ -1,116 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import 'chart.js/auto';
+import React, { useEffect, useRef, useState } from 'react';
+import Chart from 'chart.js/auto';
 
-const ShowGraph = ({ idCoin, price }) => {
+const ShowGraph = ({ idCoin, name }) => {
     const [chartData, setChartData] = useState(null);
+    const chartRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(
-                    `https://api.coingecko.com/api/v3/coins/${idCoin}/market_chart?vs_currency=usd&days=8`
+                    `https://api.coingecko.com/api/v3/coins/${idCoin || 'bitcoin'}/market_chart?vs_currency=usd&days=30`
                 );
-                const marketData = await response.json();
+                const data = await response.json();
 
-                const groupedData = marketData.prices.reduce(
-                    (result, [timestamp, price]) => {
-                        const date = new Date(timestamp);
-                        const day = date.toLocaleDateString('en-US', {
-                            day: 'numeric',
-                            month: 'numeric',
-                            year: 'numeric'
-                        });
+                const filteredData = data.prices.filter((price, index) => index % 24 === 0);
 
-                        if (!result[day]) {
-                            result[day] = [];
-                        }
+                const formattedData = {
+                    labels: filteredData.map((price) => new Date(price[0]).toLocaleDateString()),
+                    datasets: [
+                        {
+                            label: `Precio de ${name || 'Bitcoin'} (USD)`,
+                            data: filteredData.map((price) => price[1]),
+                            backgroundColor: 'rgba(122, 147, 171)',
+                            hoverBackgroundColor: 'rgba(128, 255, 0)',
+                            borderWidth: 4,
+                            borderRadius: '100',
+                        },
+                    ],
+                };
 
-                        result[day].push(price);
-
-                        return result;
-                    },
-                    {}
-                );
-
-                const averagedData = Object.entries(groupedData).map(
-                    ([day, prices]) => ({
-                        x: new Date(day),
-                        y: prices.reduce((sum, price) => sum + price, 0) / prices.length,
-                        label: `$${(prices.reduce((sum, price) => sum + price, 0) / prices.length).toFixed(2)}`
-                    })
-                );
-
-                if (averagedData && averagedData.length > 0) {
-                    const chartLabels = averagedData.map((data) => data.x.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric'
-                    }));
-
-                    const chartValues = averagedData.map((data) => data.y.toFixed(2));
-
-                    setChartData({
-                        labels: chartLabels,
-                        datasets: [
-                            {
-                                label: 'Sales Activity',
-                                data: chartValues,
-                                backgroundColor: 'rgb(176, 196, 222)', // Color de las barras (lightsteelblue en formato RGB)
-                                hoverBackgroundColor: 'limegreen' // Color de las barras al pasar el mouse sobre ellas
-                            }
-                        ]
-                    });
-                }
+                setChartData(formattedData);
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         };
 
-        if (idCoin) {
-            fetchData();
+        fetchData();
+    }, [idCoin, name]);
+
+    useEffect(() => {
+        if (chartData && chartRef.current) {
+            const ctx = chartRef.current.getContext('2d');
+
+            if (chartRef.current.chart) {
+                chartRef.current.chart.destroy();
+            }
+
+            chartRef.current.chart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            display: false,
+                        },
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                display: false,
+                            },
+                            ticks: {
+                                display: false,
+                                stepSize: 500,
+                                font: {
+                                    size: 12,
+                                },
+                            },
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                },
+            });
         }
-    }, [idCoin]);
+    }, [chartData]);
 
     return (
         <div className="showDataInGraph">
-            <h1 className="title">Sales Activity</h1>
-            <div className="chartContainer">
-                {chartData ? (
-                    <Bar
-                        data={chartData}
-                        options={{
-                            scales: {
-                                y: {
-                                    display: false // Oculta la escala del eje y
-                                },
-                                x: {
-                                    ticks: {
-                                        callback: (value) => {
-                                            const date = new Date(value);
-                                            return date.toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric'
-                                            });
-                                        }
-                                    }
-                                }
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (context) => `$${context.parsed.y.toFixed(2)}`
-                                    }
-                                }
-                            }
-                        }}
-                    />
-                ) : (
-                    <div>Loading chart data...</div>
-                )}
-            </div>
-            <div className="price">
-                ${price}
-            </div>
+            {chartData ? <canvas ref={chartRef}></canvas> : <p>Loading...</p>}
         </div>
     );
 };

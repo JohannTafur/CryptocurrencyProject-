@@ -25,7 +25,7 @@ const ShowCryptocurrencies = () => {
     };
 
     useEffect(() => {
-        showApiCryptocurrencies(cryptocurrencyUrl);
+        showApiCryptocurrencies(prueba);
     }, [])
 
     useEffect(() => {
@@ -47,7 +47,8 @@ const ShowCryptocurrencies = () => {
         <div
             className="cryptocurrencyCard"
             key={coins.id}
-            onClick={() => setSelectCryptocurrency({ id: coins.id, price: coins.current_price })}>
+            onClick={() => setSelectCryptocurrency({ id: coins.id, price: coins.current_price, name: coins.name })}>
+
             <CryptocurrencyCard
                 image={coins.image}
                 name={coins.name}
@@ -62,6 +63,7 @@ const ShowCryptocurrencies = () => {
             <ShowGraph
                 idCoin={selectCryptocurrency.id}
                 price={selectCryptocurrency.price}
+                name={selectCryptocurrency.name}
             />
             <div className="cryptocurrencySection">
                 <h1>Control Panel</h1>
