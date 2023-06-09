@@ -1,26 +1,33 @@
 The project is carried out in react Cryptocurrency Project
 
-This project is a web application to visualize information about cryptocurrencies. It provides real-time data on different cryptocurrencies, such as its price, image, name, and symbol. It also includes a search functionality to filter cryptocurrencies by name.
+This project is a web application to visualize information about cryptocurrencies.
+It provides real-time data on different cryptocurrencies, such as its price, image, name, and symbol.
+It also includes a search functionality to filter cryptocurrencies by name.
 
-Facility
-Clone the repository to your local machine:
+## Facility
 
-git clone https://github.com/JohannTafur/CryptocurrencyProject.git
+1. Clone the repository to your local machine:
 
-Go to the project folder
+    git clone https://github.com/JohannTafur/CryptocurrencyProject-.git
 
-cd CryptocurrencyProject
+2. Go to the project folder
 
-Install the project dependencies using npm:
+     cd CryptocurrencyProject-
 
-npm install
+3. Install the project dependencies using npm:
 
-Launch the application:
+     npm install
+    
+4. Launch the application:
 
-npm start
+     npm start
 
 The application will be available at http://localhost:3000.
 
 Used technology
 
-React: JavaScript library for building user interfaces. HTML: Markup language for structuring the content of the application. CSS: Language of styles to give design and appearance to the application. Coingecko API: API used to obtain cryptocurrency data in real time. API link: https://www.coingecko.com/en/api/documentation
+React: JavaScript library for building user interfaces.
+HTML: Markup language for structuring the content of the application.
+CSS: Language of styles to give design and appearance to the application.
+Coingecko API: API used to obtain cryptocurrency data in real time.
+API link: https://www.coingecko.com/en/api/documentation
