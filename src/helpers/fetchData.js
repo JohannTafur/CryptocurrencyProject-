@@ -4,7 +4,7 @@ const fetchData = async (urlApi) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error getting cryptocurrency: ', error);
+        alert("An error occurred while fetching the data. He tries again in a minute.")
     }
 };
 

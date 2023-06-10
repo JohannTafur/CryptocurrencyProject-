@@ -16,26 +16,14 @@ const ShowCryptocurrencies = () => {
     const searchCryptocurrencyUrl = `https://api.coingecko.com/api/v3/search?query=${searchCryptocurrency}`
 
     const showApiCryptocurrencies = async (urlApi) => {
-        try {
-            const data = await fetchData(urlApi);
-            setcryptocurrencyData(data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
+        const data = await fetchData(urlApi);
+        setcryptocurrencyData(data);
     };
 
-    useEffect(() => {
-        showApiCryptocurrencies(prueba);
-    }, [])
-
-    useEffect(() => {
-        const fetchSearch = async (urlSearch) => {
-            const data = await fetchData(urlSearch)
-            setBrowserData(data)
-        }
-
-        fetchSearch(searchCryptocurrencyUrl)
-    }, [searchCryptocurrency])
+    const fetchSearch = async (urlSearch) => {
+        const data = await fetchData(urlSearch)
+        setBrowserData(data)
+    }
 
     const cryptocurrencyFilter = searchCryptocurrency
         ? cryptocurrencyData.filter((coin) =>
@@ -58,13 +46,21 @@ const ShowCryptocurrencies = () => {
         </div>
     ));
 
+    useEffect(() => {
+        showApiCryptocurrencies(cryptocurrencyUrl);
+    }, [])
+
+    useEffect(() => {
+        fetchSearch(searchCryptocurrencyUrl)
+    }, [searchCryptocurrency])
+
     return (
         <>
-            <ShowGraph
-                idCoin={selectCryptocurrency.id}
-                price={selectCryptocurrency.price}
-                name={selectCryptocurrency.name}
-            />
+            {cryptocurrencyData.length > 0 && (<ShowGraph
+                idCoin={selectCryptocurrency.id || cryptocurrencyData[0].id}
+                price={selectCryptocurrency.price || cryptocurrencyData[0].current_price}
+                name={selectCryptocurrency.name || cryptocurrencyData[0].name}
+            />)}
             <div className="cryptocurrencySection">
                 <h1>Control Panel</h1>
                 <SearchCryptocurrency

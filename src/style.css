@@ -9,9 +9,44 @@
     height: 100vh;
 }
 
-.showDataInGraph {
-    padding: 3%;
+.chartContainer {
+    height: 100%;
+    width: 100%;
+}
+
+canvas {
+    margin-bottom: 40px;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.additionalData {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30PX;
+}
+
+.cryptocurrencyPrice {
+    text-align: center;
+}
+
+.additionalData .cryptocurrencyName {
+    padding: 11px 29px;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
+    background-color: rgba(188, 255, 0);
+    width: 100px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+}
+
+.showDataInGraph {
+    display: flex;
+    padding: 3%;
     color: white;
     margin: 2% 1%;
     max-width: 62%;

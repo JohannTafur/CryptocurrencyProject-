@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import fetchData from '../helpers/fetchData';
 
-const ShowGraph = ({ idCoin, name }) => {
+const ShowGraph = ({ idCoin, name, price }) => {
     const [chartData, setChartData] = useState(null);
     const chartRef = useRef(null);
 
     useEffect(() => {
         const getDataFromGraph = async () => {
             try {
-                const data = await fetchData(`https://api.coingecko.com/api/v3/coins/${idCoin || 'bitcoin'}/market_chart?vs_currency=usd&days=30`);
+                const data = await fetchData(`https://api.coingecko.com/api/v3/coins/${idCoin}/market_chart?vs_currency=usd&days=8`);
 
                 const filteredData = data.prices.filter((price, index) => index % 24 === 0);
 
@@ -17,10 +17,10 @@ const ShowGraph = ({ idCoin, name }) => {
                     labels: filteredData.map((price) => new Date(price[0]).toLocaleDateString()),
                     datasets: [
                         {
-                            label: `Precio de ${name || 'Bitcoin'} (USD)`,
+                            label: `Precio de ${name} (USD)`,
                             data: filteredData.map((price) => price[1]),
                             backgroundColor: 'rgba(122, 147, 171)',
-                            hoverBackgroundColor: 'rgba(128, 255, 0)',
+                            hoverBackgroundColor: 'rgba(188, 255, 0)',
                             borderWidth: 4,
                             borderRadius: '100',
                         },
@@ -80,7 +80,18 @@ const ShowGraph = ({ idCoin, name }) => {
 
     return (
         <div className="showDataInGraph">
-            {chartData ? <canvas ref={chartRef}></canvas> : <p>Loading...</p>}
+            <div className="chartContainer">
+                <h1>Sales Activity</h1>
+                {chartData ? <canvas ref={chartRef}></canvas> : <p>Loading...</p>}
+            </div>
+
+            <div className="additionalData">
+                <h4 className='cryptocurrencyName'>{name}</h4>
+                <div className='cryptocurrencyPrice'>
+                    <h1>{price.toFixed(2).replace('.', ',')}</h1>
+                    <h1>USD</h1>
+                </div>
+            </div>
         </div>
     );
 };
