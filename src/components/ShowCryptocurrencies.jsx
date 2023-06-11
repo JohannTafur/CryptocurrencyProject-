@@ -56,11 +56,13 @@ const ShowCryptocurrencies = () => {
 
     return (
         <>
-            {cryptocurrencyData.length > 0 && (<ShowGraph
-                idCoin={selectCryptocurrency.id || cryptocurrencyData[0].id}
-                price={selectCryptocurrency.price || cryptocurrencyData[0].current_price}
-                name={selectCryptocurrency.name || cryptocurrencyData[0].name}
-            />)}
+            <div className="showDataInGraph">
+                {cryptocurrencyData.length > 0 && (<ShowGraph
+                    idCoin={selectCryptocurrency.id || cryptocurrencyData[0].id}
+                    price={selectCryptocurrency.price || cryptocurrencyData[0].current_price}
+                    name={selectCryptocurrency.name || cryptocurrencyData[0].name}
+                />)}
+            </div>
             <div className="cryptocurrencySection">
                 <h1>Control Panel</h1>
                 <SearchCryptocurrency
@@ -68,7 +70,7 @@ const ShowCryptocurrencies = () => {
                     searchCryptocurrencies={(event) => setSearchCryptocurrency(event.target.value)}
                 />
                 <div className="showCryptocurrencies">
-                    {renderCryptocurrency}
+                    {renderCryptocurrency.length > 1 ? renderCryptocurrency : <p>No items found...</p>}
                 </div>
             </div>
         </>

@@ -1,0 +1,24 @@
+.showDataInGraph {
+    display: flex;
+    padding: 3%;
+    color: white;
+    margin: 2% 1%;
+    max-width: 62%;
+    background-color: black;
+    border-radius: 30px;
+}
+
+.cryptocurrencySection {
+    width: 38%;
+    margin: 2%;
+}
+
+.showCryptocurrencies {
+    margin: 4% 0 0 0;
+    overflow: auto;
+    max-height: 75.3vh;
+}
+
+.cryptocurrencySection h1 {
+    margin-bottom: 35px;
+}

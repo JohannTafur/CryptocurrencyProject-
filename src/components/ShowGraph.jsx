@@ -79,9 +79,13 @@ const ShowGraph = ({ idCoin, name, price }) => {
     }, [chartData]);
 
     return (
-        <div className="showDataInGraph">
+        <>
             <div className="chartContainer">
-                <h1>Sales Activity</h1>
+                <div>
+                    <h1>Sales Activity</h1>
+                    <p>here you can compare the lowest and highest moments of
+                        the cryptocurrency to determine strategies based on this data</p>
+                </div>
                 {chartData ? <canvas ref={chartRef}></canvas> : <p>Loading...</p>}
             </div>
 
@@ -92,7 +96,7 @@ const ShowGraph = ({ idCoin, name, price }) => {
                     <h1>USD</h1>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

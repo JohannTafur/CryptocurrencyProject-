@@ -1,0 +1,13 @@
+input {
+    margin-bottom: 18px;
+    border-radius: 20px;
+    background-color: #c4c4c431;
+    padding: 15px;
+    border: none;
+    width: 97.5%;
+    background-image: url('../img/icons.png');
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 15px;
+    outline: none;
+}
