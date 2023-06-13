@@ -3,7 +3,6 @@ import fetchData from "../helpers/fetchData";
 import SearchCryptocurrency from "./SearchCryptocurrency";
 import CryptocurrencyCard from "./CryptocurrencyCard";
 import ShowGraph from "./ShowGraph";
-import prueba from '../Json/prueba.JSON'
 
 const ShowCryptocurrencies = () => {
 
