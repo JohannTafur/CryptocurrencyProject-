@@ -3,22 +3,25 @@
     padding: 3%;
     color: white;
     margin: 2% 1%;
-    max-width: 62%;
+    max-width: 132vh;
     background-color: black;
     border-radius: 30px;
 }
 
 .cryptocurrencySection {
-    width: 38%;
-    margin: 2%;
+    margin: 2% 1%;
+    width: 62vh;
+}
+
+.headerCryptocurrency{
+    max-height: 30vh;
 }
 
 .showCryptocurrencies {
-    margin: 4% 0 0 0;
     overflow: auto;
-    max-height: 75.3vh;
+    max-height: 71vh;
 }
 
 .cryptocurrencySection h1 {
-    margin-bottom: 35px;
+    margin-bottom: 18px;
 }

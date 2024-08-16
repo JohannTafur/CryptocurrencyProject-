@@ -63,11 +63,13 @@ const ShowCryptocurrencies = () => {
                 />)}
             </div>
             <div className="cryptocurrencySection">
-                <h1>Control Panel</h1>
-                <SearchCryptocurrency
-                    search={searchCryptocurrency}
-                    searchCryptocurrencies={(event) => setSearchCryptocurrency(event.target.value)}
-                />
+                <div className="headerCryptocurrency">
+                    <h1>Control Panel</h1>
+                    <SearchCryptocurrency
+                        search={searchCryptocurrency}
+                        searchCryptocurrencies={(event) => setSearchCryptocurrency(event.target.value)}
+                    />
+                </div>
                 <div className="showCryptocurrencies">
                     {renderCryptocurrency.length > 1 ? renderCryptocurrency : <p>No items found...</p>}
                 </div>
